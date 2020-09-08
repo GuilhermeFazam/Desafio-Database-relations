@@ -8,26 +8,26 @@ import Order from '../infra/typeorm/entities/Order';
 import IOrdersRepository from '../repositories/IOrdersRepository';
 
 interface IProduct {
-  id: string;
-  quantity: number;
+    id: string;
+    quantity: number;
 }
 
 interface IRequest {
-  customer_id: string;
-  products: IProduct[];
+    customer_id: string;
+    products: IProduct[];
 }
 
 @injectable()
 class CreateOrderService {
-  constructor(
-    private ordersRepository: IOrdersRepository,
-    private productsRepository: IProductsRepository,
-    private customersRepository: ICustomersRepository,
-  ) {}
+    constructor(
+        private ordersRepository: IOrdersRepository,
+        private productsRepository: IProductsRepository,
+        private customersRepository: ICustomersRepository,
+    ) {}
 
-  public async execute({ customer_id, products }: IRequest): Promise<Order> {
-    // TODO
-  }
+    public async execute({ customer_id, products }: IRequest): Promise<Order> {
+        // TODO
+    }
 }
 
 export default CreateOrderService;

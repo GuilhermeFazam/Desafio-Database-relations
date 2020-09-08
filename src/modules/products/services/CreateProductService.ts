@@ -6,18 +6,22 @@ import Product from '../infra/typeorm/entities/Product';
 import IProductsRepository from '../repositories/IProductsRepository';
 
 interface IRequest {
-  name: string;
-  price: number;
-  quantity: number;
+    name: string;
+    price: number;
+    quantity: number;
 }
 
 @injectable()
 class CreateProductService {
-  constructor(private productsRepository: IProductsRepository) {}
+    constructor(private productsRepository: IProductsRepository) {}
 
-  public async execute({ name, price, quantity }: IRequest): Promise<Product> {
-    // TODO
-  }
+    public async execute({
+        name,
+        price,
+        quantity,
+    }: IRequest): Promise<Product> {
+        // TODO
+    }
 }
 
 export default CreateProductService;
