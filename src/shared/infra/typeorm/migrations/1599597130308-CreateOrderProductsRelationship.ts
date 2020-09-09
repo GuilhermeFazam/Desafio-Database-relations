@@ -11,6 +11,27 @@ export default class CreateOrderProductsRelationship1599597130308
         await queryRunner.addColumn(
             'orders_products',
             new TableColumn({
+                name: 'order_id',
+                type: 'uuid',
+                isNullable: true,
+            }),
+        );
+
+        await queryRunner.createForeignKey(
+            'orders_products',
+            new TableForeignKey({
+                name: 'OderProduct',
+                columnNames: ['order_id'],
+                referencedColumnNames: ['id'],
+                referencedTableName: 'orders',
+                onDelete: 'SET NULL',
+                onUpdate: 'CASCADE',
+            }),
+        );
+
+        await queryRunner.addColumn(
+            'orders_products',
+            new TableColumn({
                 name: 'product_id',
                 type: 'uuid',
                 isNullable: true,
@@ -28,33 +49,13 @@ export default class CreateOrderProductsRelationship1599597130308
                 onUpdate: 'CASCADE',
             }),
         );
-
-        await queryRunner.addColumn(
-            'orders_products',
-            new TableColumn({
-                name: 'order_id',
-                type: 'uuid',
-                isNullable: true,
-            }),
-        );
-
-        await queryRunner.createForeignKey(
-            'orders_products',
-            new TableForeignKey({
-                name: 'OderProduct',
-                columnNames: ['order_id'],
-                referencedColumnNames: ['id'],
-                referencedTableName: 'order',
-                onDelete: 'SET NULL',
-                onUpdate: 'CASCADE',
-            }),
-        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('orders_products', 'ProductId');
-        await queryRunner.dropColumn('orders_products', 'product_id');
         await queryRunner.dropForeignKey('orders_products', 'OderProduct');
         await queryRunner.dropColumn('orders_products', 'order_id');
+
+        await queryRunner.dropForeignKey('orders_products', 'ProductId');
+        await queryRunner.dropColumn('orders_products', 'product_id');
     }
 }
