@@ -8,6 +8,14 @@ export default class ProductsController {
         request: Request,
         response: Response,
     ): Promise<Response> {
-        // TODO
+        const { name, price, quantity } = request.body;
+
+        const createProduct = container.resolve(CreateProductService);
+        const produtc = await createProduct.execute({
+            name,
+            price,
+            quantity,
+        });
+        return response.json(produtc);
     }
 }
